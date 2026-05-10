@@ -64,7 +64,7 @@ BrickBreakerGame/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/brick-breaker-java.git
+https://github.com/AKHILESH-create/Brick-Breaker-Game-using-Java-Swing
 ```
 
 ### Step 2: Open the Project
