@@ -7,12 +7,13 @@ import java.io.*;
 public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     private boolean play = false;
+    private boolean gameStarted = false;
 
     private int score = 0;
     private int highScore = 0;
     private boolean levelComplete = false;
     private boolean gameOver = false;
-    private boolean gameStarted = false;
+
     private boolean paused = false;
     private int level = 1;
     private int totalBricks;
@@ -101,32 +102,65 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.red);
         g.fillOval(ballPosX,ballPosY,30,30);
 
+
         // START SCREEN
         if(!gameStarted){
 
-            g.setColor(new Color(220,230,255));
-            g.fillRoundRect(110,200,480,200,50,50);
+            Graphics2D g2d = (Graphics2D)g;
 
-            Graphics2D g2d = (Graphics2D) g;
-
-            g2d.setStroke(new BasicStroke(4));
-            g2d.setColor(Color.blue);
-
-            g2d.drawRoundRect(110,200,480,200,50,50);
-
-            g.setColor(new Color(0,0,180));
-            g.setFont(new Font("Arial", Font.BOLD,40));
-
-            g.drawString("BRICK BREAKER",190,275);
-
+            // Full black background
             g.setColor(Color.black);
-            g.setFont(new Font("Arial", Font.BOLD,24));
+            g.fillRect(1,1,692,592);
 
-            g.drawString("Press ENTER to Start",215,320);
+            // Neon popup background
+            g.setColor(new Color(255,255,230)); // Softer neon light yellow
+            g.fillRoundRect(60,70,560,420,30,30);
 
-            g.setFont(new Font("Arial", Font.BOLD,20));
+            // Border
+            g2d.setStroke(new BasicStroke(5));
+            g2d.setColor(new Color(255,170,0)); // Orange border
+            g2d.drawRoundRect(60,70,560,420,30,30);
 
-            g.drawString("Use LEFT ← and RIGHT → keys to move paddle",125,360);
+            // Title
+            g.setColor(new Color(220,110,0));
+            g.setFont(new Font("Arial",Font.BOLD,46));
+
+            g.drawString("BRICK BREAKER",120,130);
+
+            // Underline
+            g.setColor(new Color(255,200,100)); // Light orange
+            g.fillRect(180,155,240,2);
+
+            // Start text
+            g.setColor(new Color(0,120,0));
+            g.setFont(new Font("Arial",Font.BOLD,26));
+
+            g.drawString("Press ENTER to Start",185,210);
+
+            // Pause text
+            g.setColor(new Color(180,120,0));
+
+            g.drawString("Press P to Pause",205,260);
+
+            // Exit text
+            g.setColor(new Color(180,0,0));
+
+            g.drawString("Press ESC to Exit",205,310);
+
+            // Controls title
+            g.setColor(new Color(0,100,150));
+            g.setFont(new Font("Arial",Font.BOLD,24));
+
+            g.drawString("MOVE PADDLE",210,370);
+
+            // Arrow instructions
+            g.setColor(Color.black);
+            g.setFont(new Font("Arial",Font.BOLD,20));
+
+            g.drawString("← Move Left",150,420);
+            g.drawString("→ Move Right",350,420);
+
+            return;
         }
 
         // PAUSE POPUP
@@ -341,12 +375,26 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
             }
         }
 
+        // Exit game using ESC
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+
+            System.exit(0);
+        }
+
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
 
-            // Start game for first time
+            // First start screen
             if(!gameStarted){
 
                 gameStarted = true;
+                play = true;
+
+                repaint();
+                return;
+            }
+
+            // Start game normally
+            if(!play && !gameOver && !levelComplete){
 
                 play = true;
 
