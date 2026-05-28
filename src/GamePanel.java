@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements KeyListener, ActionListener {
 
     private void startLevel() {
 
-        int rows = 2 + level;
+        int rows = 3 + level;
         int cols = 5 + level;
 
         map = new MapGenerator(rows, cols);
